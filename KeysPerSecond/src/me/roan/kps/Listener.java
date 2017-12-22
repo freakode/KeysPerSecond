@@ -1,5 +1,7 @@
 package me.roan.kps;
 
+import me.roan.kps.panel.Menu;
+
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;

@@ -17,6 +17,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import me.roan.kps.panel.RenderingMode;
+import me.roan.kps.panel.SizeManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 import me.roan.kps.CommandKeys.CMD;
@@ -33,75 +35,75 @@ public class Configuration {
 	/**
 	 * Whether or not to show the max value
 	 */
-	protected boolean showMax = true;
+	public boolean showMax = true;
 	/**
 	 * Whether or not to show the average value
 	 */
-	protected boolean showAvg = true;
+	public boolean showAvg = true;
 	/**
 	 * Whether or not to show the current value
 	 */
-	protected boolean showCur = true;
+	public boolean showCur = true;
 	/**
 	 * Whether or not to show the keys
 	 */
-	protected boolean showKeys = true;
+	public boolean showKeys = true;
 	/**
 	 * Whether or not to show the graph
 	 */
-	protected boolean showGraph = false;
+	public boolean showGraph = false;
 	/**
 	 * Whether or not the frame forces itself to be the top window
 	 */
-	protected boolean overlay = false;
+	public boolean overlay = false;
 	/**
 	 * Whether or not to use custom colors
 	 */
-	protected boolean customColors = false;
+	public boolean customColors = false;
 	/**
 	 * Whether or not to track all key presses
 	 */
-	protected boolean trackAll = false;
+	public boolean trackAll = false;
 	/**
 	 * Whether or not to show the total number of hits
 	 */
-	protected boolean showTotal = false;
+	public boolean showTotal = false;
 	/**
 	 * Whether or not the enable tracking key-modifier combinations
 	 */
-	protected boolean enableModifiers = false;
+	public boolean enableModifiers = false;
 	
 	//keys
 	/**
 	 * Key configuration data, can be serialised
 	 */
-	protected List<KeyInformation> keyinfo = new ArrayList<KeyInformation>();
+	public List<KeyInformation> keyinfo = new ArrayList<KeyInformation>();
 
 	//graph
 	/**
 	 * Number of points the graph consists of
 	 */
-	protected int backlog = 30;
+	public int backlog = 30;
 	/**
 	 * Draw the horizontal average line
 	 */
-	protected boolean graphAvg = true;
+	public boolean graphAvg = true;
 
 	//update rate
 	/**
 	 * The amount of milliseconds a single time frame takes
 	 */
-	protected int updateRate = 1000;
+	public int updateRate = 1000;
 
 	//colors
 	/**
 	 * Foreground color
 	 */
-	protected Color foreground = Color.CYAN;
+	public Color foreground = Color.CYAN;
 	/**
 	 * Background color
 	 */
-	protected Color background = Color.BLACK;
+	public Color background = Color.BLACK;
 	/**
 	 * Foreground opacity in case transparency is enabled
 	 */
@@ -115,13 +117,13 @@ public class Configuration {
 	/**
 	 * How many digits to display for avg
 	 */
-	protected int precision = 0;
+	public int precision = 0;
 
 	//size
 	/**
 	 * The factor to multiply the frame size with
 	 */
-	protected double size = 1.0D;
+	public double size = 1.0D;
 	
 	//command keys
 	/**
@@ -161,7 +163,7 @@ public class Configuration {
 	/**
 	 * Mode in which text is rendered
 	 */
-	protected RenderingMode mode = RenderingMode.VERTICAL;
+	public RenderingMode mode = RenderingMode.VERTICAL;
 	/**
 	 * Position the graph is rendered in
 	 */
@@ -169,27 +171,27 @@ public class Configuration {
 	/**
 	 * Width of the graph
 	 */
-	protected int graphWidth = SizeManager.defaultGraphWidth;
+	public int graphWidth = SizeManager.defaultGraphWidth;
 	/**
 	 * Height of the graph
 	 */
-	protected int graphHeight = SizeManager.subComponentHeight;
+	public int graphHeight = SizeManager.subComponentHeight;
 	/**
 	 * Position of the maximum
 	 */
-	protected int posMax = 101;
+	public int posMax = 101;
 	/**
 	 * Position of the average
 	 */
-	protected int posAvg = 102;
+	public int posAvg = 102;
 	/**
 	 * Position of current
 	 */
-	protected int posCur = 103;
+	public int posCur = 103;
 	/**
 	 * Position of the total
 	 */
-	protected int posTot = 104;
+	public int posTot = 104;
 	
 	/**
 	 * The original configuration file
@@ -208,28 +210,28 @@ public class Configuration {
 	/**
 	 * @return The background opacity
 	 */
-	protected final float getBackgroundOpacity(){
+	public final float getBackgroundOpacity(){
 		return customColors ? opacitybg : 1.0F;
 	}
 	
 	/**
 	 * @return The foreground opacity
 	 */
-	protected final float getForegroundOpacity(){
+	public final float getForegroundOpacity(){
 		return customColors ? opacityfg : 1.0F;
 	}
 	
 	/**
 	 * @return The background color
 	 */
-	protected final Color getBackgroundColor(){
+	public final Color getBackgroundColor(){
 		return customColors ? background : Color.BLACK;
 	}
 	
 	/**
 	 * @return The foreground color
 	 */
-	protected final Color getForegroundColor(){
+	public final Color getForegroundColor(){
 		return customColors ? foreground : Color.CYAN;
 	}
 	
@@ -257,7 +259,7 @@ public class Configuration {
 	 * @param saveloc The save location
 	 * @return Whether or not the config was loaded successfully
 	 */
-	protected static final boolean loadConfiguration(){
+	public static final boolean loadConfiguration(){
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("Keys per second configuration file", "kpsconf", "kpsconf2"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -705,7 +707,6 @@ public class Configuration {
 	 * @param saveloc The save location
 	 * @return Whether or not the config was loaded successfully
 	 */
-	@SuppressWarnings("unchecked")
 	private final boolean loadLegacyFormat(File saveloc){
 		try {
 			ObjectInputStream objin = new ObjectInputStream(new FileInputStream(saveloc));
@@ -765,7 +766,7 @@ public class Configuration {
 	 *        to save the on screen position
 	 *        of the program
 	 */
-	protected final void saveConfig(boolean pos){
+	public final void saveConfig(boolean pos){
 		boolean savepos = (!pos) ? false : (JOptionPane.showConfirmDialog(null, "Do you want to save the onscreen position of the program?", "Keys per Second", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("Keys per second configuration file", "kpsconf", "kpsconf2"));

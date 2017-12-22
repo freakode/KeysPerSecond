@@ -66,6 +66,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import me.roan.kps.panel.*;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.NativeInputEvent;
@@ -105,31 +106,31 @@ public class Main {
 	 * The number of seconds the average has
 	 * been calculated for
 	 */
-	protected static long n = 0;
+	public static long n = 0;
 	/**
 	 * The number of keys pressed in the
 	 * ongoing second
 	 */
-	protected static AtomicInteger tmp = new AtomicInteger(0);
+	public static AtomicInteger tmp = new AtomicInteger(0);
 	/**
 	 * The average keys per second
 	 */
-	protected static double avg;
+	public static double avg;
 	/**
 	 * The maximum keys per second value reached so far
 	 */
-	protected static int max;
+	public static int max;
 	/**
 	 * The keys per second of the previous second
 	 * used for displaying the current keys per second value
 	 */
-	protected static int prev;
+	public static int prev;
 	/**
 	 * HashMap containing all the tracked keys and their
 	 * virtual codes<br>Used to increment the count for the
 	 * keys
 	 */
-	protected static Map<Integer, Key> keys = new HashMap<Integer, Key>();
+	public static Map<Integer, Key> keys = new HashMap<Integer, Key>();
 	/**
 	 * The most recent key event, only
 	 * used during the initial setup
@@ -143,7 +144,7 @@ public class Main {
 	/**
 	 * Graph panel
 	 */
-	protected static GraphPanel graph = new GraphPanel();
+	public static GraphPanel graph = new GraphPanel();
 	/**
 	 * Linked list containing all the past key counts per time frame
 	 */
@@ -151,15 +152,15 @@ public class Main {
 	/**
 	 * The program's main frame
 	 */
-	protected static final JFrame frame = new JFrame("Keys per second");
+	public static final JFrame frame = new JFrame("Keys per second");
 	/**
 	 * Whether or not the counter is paused
 	 */
-	protected static boolean suspended = false;
+	public static boolean suspended = false;
 	/**
 	 * The configuration
 	 */
-	protected static Configuration config = new Configuration(null);
+	public static Configuration config = new Configuration(null);
 	/**
 	 * The loop timer
 	 */
@@ -171,7 +172,7 @@ public class Main {
 	/**
 	 * Frame for the graph
 	 */
-	protected static JFrame graphFrame = new JFrame("Keys per second");
+	public static JFrame graphFrame = new JFrame("Keys per second");
 	
 	/**
 	 * Main method
@@ -271,7 +272,7 @@ public class Main {
 	 * average, current and 
 	 * maximum keys per second
 	 */
-	protected static final void mainLoop(){
+	public static final void mainLoop(){
 		if(timer == null){
 			timer = Executors.newSingleThreadScheduledExecutor();
 		}else{
@@ -807,7 +808,7 @@ public class Main {
 	/**
 	 * Shows the size configuration dialog
 	 */
-	protected static final void configureSize(){
+	public static final void configureSize(){
 		JPanel pconfig = new JPanel(new BorderLayout());
 		JSpinner s = new JSpinner(new SpinnerNumberModel(config.size * 100, 50, Integer.MAX_VALUE, 1));
 		JLabel info = new JLabel("<html>Change how big the displayed window is.<br>"
@@ -828,7 +829,7 @@ public class Main {
 	/**
 	 * Shows the color configuration dialog
 	 */
-	protected static final void configureColors(){
+	public static final void configureColors(){
 		JPanel cfg = new JPanel();
 		JPanel cbg = new JPanel();
 		MouseListener clistener = new MouseListener(){
@@ -909,7 +910,7 @@ public class Main {
 	/**
 	 * Show the command key configuration dialog
 	 */
-	protected static final void configureCommandKeys(){
+	public static final void configureCommandKeys(){
 		JPanel content = new JPanel(new GridLayout(6, 2, 10, 2));
 
 		JLabel lcp = new JLabel("Reset stats:");
@@ -994,7 +995,7 @@ public class Main {
 	 * Changes the update rate
 	 * @param newRate The new update rate
 	 */
-	protected static final void changeUpdateRate(int newRate){
+	public static final void changeUpdateRate(int newRate){
 		n *= (double)config.updateRate / (double)newRate;
 		tmp.set(0);
 		timepoints.clear();
@@ -1005,7 +1006,7 @@ public class Main {
 	/**
 	 * Shows the layout configuration dialog
 	 */
-	protected static final void configureLayout(){
+	public static final void configureLayout(){
 		JPanel config = new JPanel(new BorderLayout());
 		JPanel mode = new JPanel(new GridLayout(0, 2, 0, 5));
 		//Text mode (horizontal / vertical)
@@ -1117,7 +1118,7 @@ public class Main {
 	/**
 	 * Shows the key configuration dialog
 	 */
-	protected static final void configureKeys(){
+	public static final void configureKeys(){
 		List<KeyInformation> copy = new ArrayList<KeyInformation>(config.keyinfo);
 		JPanel keyform = new JPanel(new BorderLayout());
 		keyform.add(new JLabel("Currently added keys (you can edit the position & visible or remove it):"), BorderLayout.PAGE_START);
@@ -1413,7 +1414,7 @@ public class Main {
 	/**
 	 * Reconfigures the layout of the program
 	 */
-	protected static final void reconfigure(){
+	public static final void reconfigure(){
 		SwingUtilities.invokeLater(()->{
 			frame.getContentPane().removeAll();
 			content = new JPanel();
@@ -1496,7 +1497,7 @@ public class Main {
 				c = (int) Math.ceil((double)panels / (double)r);
 			}
 			content.setLayout(new GridLayout(r, c, 0, 0));
-			frame.setSize(c * SizeManager.keyPanelWidth + (config.showGraph ? config.graphMode.getAddedWidth() : 0), 
+			frame.setSize(c * SizeManager.keyPanelWidth + (config.showGraph ? config.graphMode.getAddedWidth() : 0),
 					      SizeManager.subComponentHeight * r + (config.showGraph ? config.graphMode.getAddedHeight() : 0));
 			if(ColorManager.transparency){
 				frame.setBackground(ColorManager.transparent);
@@ -1551,7 +1552,7 @@ public class Main {
 	/**
 	 * Shuts down the program
 	 */
-	protected static final void exit(){
+	public static final void exit(){
 		try {
 			GlobalScreen.unregisterNativeHook();
 		} catch (NativeHookException e1) {
@@ -1563,7 +1564,7 @@ public class Main {
 	/**
 	 * Resets avg, max & cur
 	 */
-	protected static final void resetStats(){
+	public static final void resetStats(){
 		System.out.println("Reset max & avg | max: " + max + " avg: " + avg);
 		n = 0;
 		avg = 0;
@@ -1577,7 +1578,7 @@ public class Main {
 	/**
 	 * Resets key count totals
 	 */
-	protected static final void resetTotals(){
+	public static final void resetTotals(){
 		System.out.print("Reset key counts | ");
 		for(Key k : keys.values()){
 			System.out.print(k.name + ":" + k.count + " ");
@@ -1664,7 +1665,7 @@ public class Main {
 	/**
 	 * Saves the statistics logged so far
 	 */
-	protected static void saveStats(){
+	public static void saveStats(){
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("Keys per second statistics file", "kpsstats"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -1698,7 +1699,7 @@ public class Main {
 	/**
 	 * Loads the statistics from a file
 	 */
-	protected static void loadStats(){
+	public static void loadStats(){
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("Keys per second statistics file", "kpsstats"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -1739,7 +1740,7 @@ public class Main {
 	 * is pressed
 	 * @author Roan
 	 */
-	protected static final class Key implements Serializable{
+	public static final class Key implements Serializable{
 		/**
 		 * Serial ID
 		 */
@@ -1747,16 +1748,16 @@ public class Main {
 		/**
 		 * Whether or not this key is currently pressed
 		 */
-		protected transient boolean down = false;
+		public transient boolean down = false;
 		/**
 		 * The total number of times this key has been pressed
 		 */
-		protected int count = 0;
+		public int count = 0;
 		/**
 		 * The key in string form<br>
 		 * For example: X
 		 */
-		protected transient final String name;
+		public transient final String name;
 		/**
 		 * The graphical display for this key
 		 */
@@ -1828,7 +1829,7 @@ public class Main {
 	 * about a key.
 	 * @author Roan
 	 */
-	protected static final class KeyInformation implements Serializable{
+	public static final class KeyInformation implements Serializable{
 		/**
 		 * Serial ID
 		 */
@@ -1842,11 +1843,11 @@ public class Main {
 		 * The virtual key code of this key<br>
 		 * This code represents the key
 		 */
-		protected int keycode;
+		public int keycode;
 		/**
 		 * Index of the key
 		 */
-		protected int index = autoIndex++;
+		public int index = autoIndex++;
 		/**
 		 * Auto-increment for #index
 		 */
