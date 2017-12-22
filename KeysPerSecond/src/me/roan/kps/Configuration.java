@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import me.roan.kps.panel.GraphMode;
 import me.roan.kps.panel.RenderingMode;
 import me.roan.kps.panel.SizeManager;
 import org.jnativehook.keyboard.NativeKeyEvent;
